@@ -87,6 +87,14 @@
 #define NOTE_CS8 4435
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
+/* 
+ * ########################################
+ * ### Do Re Mi Kfa-Fa                  ###
+ * ### Musical glove by ailaG           ###
+ * ### github.com/ailaG/do-re-mi-kfa-fa ###
+ * ### Made & won in hack2wear 2014     ###
+ * ########################################
+ */
 
 
 int max_piezo_inputs = 4;
