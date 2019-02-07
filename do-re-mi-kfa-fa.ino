@@ -37,47 +37,48 @@ void setup() {
   }
 } // setup
 
-int tmpOut;
-int tmpCount, outTone;
+int fingerReading; // What's the value we read for a finger?
+int fingersCount; // How many fingers are down?
+int accumulatingTone; // Accumulating output from all fingers (to calculate average)
 
 void loop() {
-  tmpCount =0;
-  tmpOut = 0;
-  outTone = 0;
+  fingersCount = 0;
+  accumulatingTone = 0;
 
   // Read fingers
   for (int i=0; i<num_fingers; i++) {
-    tmpOut = analogRead(FINGER_PINS[i]);
+    fingerReading = analogRead(FINGER_PINS[i]);
     if (DEBUG) {
+      Serial.print(" (");
       Serial.print(i);
-      Serial.print(": ");
-      Serial.print(tmpOut);
+      Serial.print(") value: ");
+      Serial.print(fingerReading);
     }
     
-    if (tmpOut > inputPiezoThreshold) {
+    if (fingerReading > inputPiezoThreshold) {
       // Finger #i pressed!
       
-      if (digitalRead(DISTANCE_PIN) == 1) {
-        outTone += notes_regular[i];
+      if (digitalRead(DISTANCE_PIN) == HIGH) {
+        accumulatingTone += notes_regular[i];
       } else {
-        outTone += notes_special[i];
+        accumulatingTone += notes_special[i];
       }
       
-      tmpCount++;
+      fingersCount++;
       digitalWrite(LED_PINS[i], HIGH);
       
       if (DEBUG) {
         Serial.print(" Pressed! ");
-        Serial.print(" outTone: ");
-        Serial.print(outTone);
+        Serial.print(" accumulatingTone: ");
+        Serial.print(accumulatingTone);
       }
     } else {
       // Not pressed hard enough
       digitalWrite(LED_PINS[i], LOW);
       if (DEBUG) {
         Serial.print(" --------- "); 
-        Serial.print(" outTone: ");
-        Serial.print(outTone);
+        Serial.print(" accumulatingTone: ");
+        Serial.print(accumulatingTone);
       }
     }
         
@@ -85,12 +86,8 @@ void loop() {
 
 
   // Play music!
-  if (outTone > 0) {
-    tone(SPEAKER_PIN, outTone / tmpCount);
-    if (DEBUG) {
-      Serial.print(" TOTAL OUT : ");
-      Serial.print(outTone);
-    }
+  if (accumulatingTone > 0) {
+    tone(SPEAKER_PIN, accumulatingTone / fingersCount);
   } else {
     noTone(SPEAKER_PIN);
   }
