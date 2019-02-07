@@ -12,6 +12,7 @@
 bool DEBUG = true;
 
 int FINGER_PINS[] = {A0, A1, A2, A3};
+int LED_PINS[] = {13, 12, 11, 10};
 int DISTANCE_PIN = A5;
 int SPEAKER_PIN = 9;
 
@@ -26,6 +27,7 @@ int interval = 100;
 void setup() {
   for (int i=0; i<num_fingers; i++) {
     pinMode(FINGER_PINS[i], INPUT);
+    pinMode(LED_PINS[i], OUTPUT);
   }
   pinMode(DISTANCE_PIN, INPUT);
   pinMode(SPEAKER_PIN, OUTPUT);
@@ -62,6 +64,7 @@ void loop() {
       }
       
       tmpCount++;
+      digitalWrite(LED_PINS[i], HIGH);
       
       if (DEBUG) {
         Serial.print(" Pressed! ");
@@ -70,6 +73,7 @@ void loop() {
       }
     } else {
       // Not pressed hard enough
+      digitalWrite(LED_PINS[i], LOW);
       if (DEBUG) {
         Serial.print(" --------- "); 
         Serial.print(" outTone: ");
