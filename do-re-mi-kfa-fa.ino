@@ -16,8 +16,8 @@ int LED_PINS[] = {13, 12, 11, 10};
 int DISTANCE_PIN = A5;
 int SPEAKER_PIN = 9;
 
-float notes_regular[] = {NOTE_C3, NOTE_E3, NOTE_G3, NOTE_C4};
-float notes_special[] = {NOTE_D3, NOTE_G3, NOTE_AS3, NOTE_D4};
+float notes_regular[] = {NOTE_C3, NOTE_D3, NOTE_E3, NOTE_G3, NOTE_A4}; // Major pentatonic
+float notes_special[] = {NOTE_C3, NOTE_DS3, NOTE_F3, NOTE_G4, NOTE_AS4}; // Minor pentatonic?
 
 int num_fingers = 4;
 int inputPiezoThreshold = 500;
