@@ -51,7 +51,8 @@ void loop() {
       Serial.print(": ");
       Serial.print(tmpOut);
     }
-    if (tmpOut < inputPiezoThreshold) {
+    
+    if (tmpOut > inputPiezoThreshold) {
       // Finger #i pressed!
       
       if (digitalRead(DISTANCE_PIN) == 1) {
