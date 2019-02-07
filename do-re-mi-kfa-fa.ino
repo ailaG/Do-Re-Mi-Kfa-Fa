@@ -87,7 +87,6 @@ void loop() {
   // Play music!
   if (outTone > 0) {
     tone(SPEAKER_PIN, outTone / tmpCount);
-    delay(interval);
     if (DEBUG) {
       Serial.print(" TOTAL OUT : ");
       Serial.print(outTone);
@@ -95,6 +94,9 @@ void loop() {
   } else {
     noTone(SPEAKER_PIN);
   }
+  delay(interval);
+
+  
   if (DEBUG) {
     Serial.println("");
   }
