@@ -16,13 +16,20 @@ int FINGER_PINS[] = {A0, A1, A2, A3};
 int inputPiezoThreshold = 10;
 int DISTANCE_PIN = A5;
 int SPEAKER_PIN = 9;
-float outs1[] = {NOTE_C3, NOTE_E3, NOTE_G3, NOTE_C4};
-float outs2[] = {NOTE_D3, NOTE_G3, NOTE_AS3, NOTE_D4};
+
+float notes_regular[] = {NOTE_C3, NOTE_E3, NOTE_G3, NOTE_C4};
+float notes_special[] = {NOTE_D3, NOTE_G3, NOTE_AS3, NOTE_D4};
 
 int interval = 100;
 
 
 void setup() {
+  for (int i=0; i<num_fingers; i++) {
+    pinMode(FINGER_PINS[i], INPUT);
+  }
+  pinMode(DISTANCE_PIN, INPUT);
+  pinMode(SPEAKER_PIN, OUTPUT);
+  
   if (DEBUG) {
    Serial.begin(9600); 
   }
@@ -45,16 +52,23 @@ void loop() {
       Serial.print(" ");
     }
     if (tmpOut < inputPiezoThreshold) {
+      // Finger #i pressed!
+      
       if (digitalRead(DISTANCE_PIN) == 1) {
-        outTone += outs1[i];
+        outTone += notes_regular[i];
       } else {
-        outTone += outs2[i];
+        outTone += notes_special[i];
       }
       tmpCount++;
+      
       if (DEBUG) {
+        Serial.print("Pressed: ");
+        Serial.print(i);
+        Serial.print("outTone: ");
         Serial.print(outTone);
       }
     } else {
+      // Not pressed hard enough
       if (DEBUG) {
         Serial.print("--.--"); 
       }
