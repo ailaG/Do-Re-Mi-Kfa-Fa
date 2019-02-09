@@ -20,7 +20,7 @@ float notes_regular[] = {NOTE_C3, NOTE_D3, NOTE_E3, NOTE_G3, NOTE_A4}; // Major 
 float notes_special[] = {NOTE_C3, NOTE_DS3, NOTE_F3, NOTE_G4, NOTE_AS4}; // Minor pentatonic?
 
 int num_fingers = 4;
-int inputPiezoThreshold = 500;
+int inputPiezoThreshold = 50;
 int interval = 100;
 
 
