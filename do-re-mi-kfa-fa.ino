@@ -11,10 +11,10 @@
 
 bool DEBUG = true;
 
+int SPEAKER_PIN = 9;
 int FINGER_PINS[] = {A0, A1, A2, A3};
 int LED_PINS[] = {13, 12, 11, 10};
-int DISTANCE_PIN = A5;
-int SPEAKER_PIN = 9;
+int DISTANCE_PIN = A5; // optional, currently disabled in code!
 
 float notes_regular[] = {NOTE_C3, NOTE_D3, NOTE_E3, NOTE_G3, NOTE_A4}; // Major pentatonic
 float notes_special[] = {NOTE_C3, NOTE_DS3, NOTE_F3, NOTE_G4, NOTE_AS4}; // Minor pentatonic?
@@ -29,9 +29,9 @@ void setup() {
     pinMode(FINGER_PINS[i], INPUT);
     pinMode(LED_PINS[i], OUTPUT);
   }
-  pinMode(DISTANCE_PIN, INPUT);
   pinMode(SPEAKER_PIN, OUTPUT);
-  
+  pinMode(DISTANCE_PIN, INPUT);  // optional
+    
   if (DEBUG) {
    Serial.begin(9600); 
   }
@@ -55,30 +55,26 @@ void loop() {
       Serial.print(fingerReading);
     }
     
-    if (fingerReading > inputPiezoThreshold) {
+    if (fingerReading < inputPiezoThreshold) {
       // Finger #i pressed!
       
-      if (digitalRead(DISTANCE_PIN) == HIGH) {
+      //if (digitalRead(DISTANCE_PIN) == HIGH) {   // optional
         accumulatingTone += notes_regular[i];
-      } else {
-        accumulatingTone += notes_special[i];
-      }
+      //} else {
+      //  accumulatingTone += notes_special[i];
+      //}
       
       fingersCount++;
       digitalWrite(LED_PINS[i], HIGH);
       
       if (DEBUG) {
         Serial.print(" Pressed! ");
-        Serial.print(" accumulatingTone: ");
-        Serial.print(accumulatingTone);
       }
     } else {
       // Not pressed hard enough
       digitalWrite(LED_PINS[i], LOW);
       if (DEBUG) {
         Serial.print(" --------- "); 
-        Serial.print(" accumulatingTone: ");
-        Serial.print(accumulatingTone);
       }
     }
         
