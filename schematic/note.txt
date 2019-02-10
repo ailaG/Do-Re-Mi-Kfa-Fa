@@ -1,0 +1,1 @@
+Simplified & doesn't use the same pins as the code, because it's made for the presentation.
