@@ -11,10 +11,10 @@
 
 bool DEBUG = true;
 
-int SPEAKER_PIN = 9;
-int FINGER_PINS[] = {A0, A1, A2, A3};
-int LED_PINS[] = {13, 12, 11, 10};
-int DISTANCE_PIN = A5; // optional, currently disabled in code!
+int SPEAKER_PIN = 3;
+int FINGER_PINS[] = {A0, A5, A2, A3};
+int LED_PINS[] = {13, 12, 10, 8};
+int DISTANCE_PIN = A1; // optional, currently disabled in code!
 
 float notes_regular[] = {NOTE_C3, NOTE_D3, NOTE_E3, NOTE_G3, NOTE_A4}; // Major pentatonic
 float notes_special[] = {NOTE_C3, NOTE_DS3, NOTE_F3, NOTE_G4, NOTE_AS4}; // Minor pentatonic?
